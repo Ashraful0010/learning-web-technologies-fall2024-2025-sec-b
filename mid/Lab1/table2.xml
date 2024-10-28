@@ -1,7 +1,10 @@
 <students>
     <students_info>
         <sl>23</sl>
-        <name>John Carter</name>
+        <name>
+        <first_name>John</first_name>
+        <last_name>Carter</last_name>
+        </name>
         <admission_date>
             <date>25</date>
             <month>12</month>
@@ -11,7 +14,10 @@
 
     <students_info>
         <sl>29</sl>
-        <name>Bob Marshal</name>
+        <name>
+        <first_name>Bob</first_name>
+        <last_name>Marshal</last_name>
+        </name>
         <admission_date>
             <date>13</date>
             <month>01</month>
@@ -21,7 +27,10 @@
 
     <students_info>
         <sl>35</sl>
-        <name>Clark Kent</name>
+        <name>
+        <first_name>Clark</first_name>
+        <last_name>Kent</last_name>
+        </name>
         <admission_date>
             <date>17</date>
             <month>06</month>
