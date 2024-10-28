@@ -1,6 +1,9 @@
 <employees>
     <employee_info id="1">
-        <name>John Doe</name>
+        <name>
+            <first_name>John</first_name>
+            <last_name>John</last_name>
+        </name>
         <address>
             <flat></flat>
             <house>38</house>
@@ -13,7 +16,10 @@
     </employee_info>
 
     <employee_info id="2">
-        <name>Mark Zuckerberg</name>
+        <name>
+            <first_name>Mark</first_name>
+            <last_name>Zuckerberg</last_name>
+        </name>
         <address>
             <flat>A/1</flat>
             <house>20</house>
@@ -26,7 +32,10 @@
     </employee_info>
 
     <employee_info id="3">
-        <name>Ala Voski</name>
+        <name>
+            <first_name>Ala</first_name>
+            <last_name>Voski</last_name>
+        </name>
         <address>
             <flat></flat>
             <house>38</house>
