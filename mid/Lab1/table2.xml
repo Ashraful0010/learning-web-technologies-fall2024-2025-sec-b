@@ -2,8 +2,8 @@
     <students_info>
         <sl>23</sl>
         <name>
-        <first_name>John</first_name>
-        <last_name>Carter</last_name>
+            <first_name>John</first_name>
+            <last_name>Carter</last_name>
         </name>
         <admission_date>
             <date>25</date>
@@ -15,8 +15,8 @@
     <students_info>
         <sl>29</sl>
         <name>
-        <first_name>Bob</first_name>
-        <last_name>Marshal</last_name>
+            <first_name>Bob</first_name>
+            <last_name>Marshal</last_name>
         </name>
         <admission_date>
             <date>13</date>
@@ -28,8 +28,8 @@
     <students_info>
         <sl>35</sl>
         <name>
-        <first_name>Clark</first_name>
-        <last_name>Kent</last_name>
+            <first_name>Clark</first_name>
+            <last_name>Kent</last_name>
         </name>
         <admission_date>
             <date>17</date>
