@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Document</title>
+    <title>Date of Birth</title>
 </head>
 
 <body>
