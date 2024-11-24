@@ -10,15 +10,18 @@ $user = $_SESSION['user'];
 ?>
 
 <html>
+
 <head>
     <title>Home</title>
 </head>
+
 <body>
     <h1>Welcome to your Home Page!</h1>
     <p><strong>Name:</strong> <?php echo htmlspecialchars($user['name']); ?></p>
     <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-    <p><strong>Password:</strong> <?php echo htmlspecialchars($user['password']); ?></p> <!-- Not secure; for demo purposes only -->
+    <p><strong>Password:</strong> <?php echo htmlspecialchars($user['password']); ?></p>
     <a href="logout.php">Logout</a>
 </body>
+
 </html>
