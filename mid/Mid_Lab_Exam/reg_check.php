@@ -10,9 +10,10 @@ if (isset($_POST['submit'])) {
 
     } elseif (str_word_count($name) < 2) {
         echo "Name must contain at least two words!";
-    } elseif (!preg_match("/[a-zA-Z]/", $name)) {
-        echo "Name can contain a-z, A-Z only !";
+    } elseif (!ctype_alpha($name)) {
+        echo "Name can contain a-z, A-Z only!";
     }
+
     //username validation
     elseif (empty($username)) {
     echo "Username cannot be empty";
@@ -23,7 +24,7 @@ if (isset($_POST['submit'])) {
     //email validation
     elseif (empty($email)) {
         echo "Email cannot be empty! ";
-    } elseif (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email format! Please use a valid email like example@example.com.";
     }
     //password validation
@@ -32,8 +33,14 @@ if (isset($_POST['submit'])) {
     } elseif (str_word_count($password) > 1) {
         echo "No spacing is allowd in password";
     } else {
-        $_SESSION['submit'] = true;
+        $_SESSION['user'] = [
+            'name'=> $name,
+            'email'=> $email,
+            'username'=> $username,
+            'password' => $password
+        ];
         header('location: login.html');
     }
+
 }
 ?>
