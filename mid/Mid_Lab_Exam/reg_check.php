@@ -1,46 +1,73 @@
 <?php
+session_start();
+
 if (isset($_POST['submit'])) {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
     $username = trim($_POST['username']);
-    //name validation
+    $password = trim($_POST['password']);
+    $errors = [];
+
+    // Validate Name (used internet)
     if (empty($name)) {
-        echo "Name cannot be empty!";
-
+        $errors[] = "Name cannot be empty!";
     } elseif (str_word_count($name) < 2) {
-        echo "Name must contain at least two words!";
-    } elseif (!ctype_alpha($name)) {
-        echo "Name can contain a-z, A-Z only!";
+        $errors[] = "Name must contain at least two words!";
+    } else {
+        $isValidName = true;
+        $allowedChars = range('a', 'z'); // Lowercase letters
+        $allowedChars = array_merge($allowedChars, range('A', 'Z'), [' ']); // Add uppercase letters and spaces
+
+        foreach (str_split($name) as $char) {
+            if (!in_array($char, $allowedChars)) {
+                $isValidName = false;
+                break;
+            }
+        }
+
+        if (!$isValidName) {
+            $errors[] = "Name can contain only letters (a-z, A-Z) and spaces!";
+        }
     }
 
-    //username validation
-    elseif (empty($username)) {
-    echo "Username cannot be empty";
-    }
-    elseif (str_word_count($username) > 1) {
-        echo "No space is allowed in username";
-    }
-    //email validation
-    elseif (empty($email)) {
-        echo "Email cannot be empty! ";
+    // Validate Email  (used internet)
+    if (empty($email)) {
+        $errors[] = "Email cannot be empty!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format! Please use a valid email like example@example.com.";
+        $errors[] = "Invalid email format! Please use a valid email like example@example.com.";
     }
-    //password validation
-    elseif (empty($password)) {
-        echo "Password cannot be empty!";
+
+    // Validate Username
+    if (empty($username)) {
+        $errors[] = "Username cannot be empty!";
+    } elseif (str_word_count($username) > 1) {
+        $errors[] = "No spaces are allowed in the username!";
+    }
+
+    // Validate Password
+    if (empty($password)) {
+        $errors[] = "Password cannot be empty!";
     } elseif (str_word_count($password) > 1) {
-        echo "No spacing is allowd in password";
+        $errors[] = "No spaces are allowed in the password!";
+    } elseif (strlen($password) < 6) {
+        $errors[] = "Password must be at least 6 characters long!";
+    }
+
+    // Output Errors or Proceed
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
+            echo "$error";
+        }
     } else {
+        // Store validated data in session
         $_SESSION['user'] = [
-            'name'=> $name,
-            'email'=> $email,
-            'username'=> $username,
+            'name' => $name,
+            'email' => $email,
+            'username' => $username,
             'password' => $password
         ];
-        header('location: login.html');
+        header('Location: login.html');
+        exit;
     }
-
 }
 ?>
