@@ -1,4 +1,15 @@
 <?php
+
+// Start session
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to login page if not logged in
+    header("Location: ../View/login.html");
+    exit;
+}
+
 // Database connection
 $host = 'localhost';
 $dbname = 'brta-project';
@@ -119,7 +130,7 @@ $conn->close();
     <!--Go back to Homepage button-->
     </div>
     <div style="text-align: center; margin-top: 20px;">
-        <a href="../View/home.html">
+        <a href="../View/userHome.php">
             <button
                 style="padding: 10px 20px; background-color: #006400; color: white; cursor: pointer; border-radius: 5px;">
                 Go Back to Homepage
