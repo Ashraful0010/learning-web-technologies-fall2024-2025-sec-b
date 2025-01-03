@@ -1,4 +1,14 @@
 <?php
+// Start session
+session_start();
+
+// Check if the admin is logged in
+if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+    // Redirect to login page if not logged in
+    header("Location: ../View/adminlogin.html");
+    exit;
+}
+
 // Database connection
 $host = 'localhost';
 $dbname = 'brta-project';
@@ -68,7 +78,7 @@ $conn->close();
         }
 
         .header-bar {
-            background-color: #006400;
+            background-color: rgb(0, 152, 190);
 
 
             color: white;
@@ -114,7 +124,7 @@ $conn->close();
 
         button {
             padding: 10px 15px;
-            background-color: #006400;
+            background-color: rgb(0, 152, 190);
             color: white;
             border: none;
             cursor: pointer;
@@ -135,7 +145,7 @@ $conn->close();
     <header>
         <div class="header-bar">
             <img src="../Asset/brta-logo-new.png" alt="brta logo" class="header-logo">
-            <h1>BRTA Service Fee</h1>
+            <h1>BRTA Rules</h1>
         </div>
     </header>
 
@@ -188,7 +198,7 @@ $conn->close();
     <!--Go back to Homepage button-->
     </div>
     <div style="text-align: center; margin-top: 20px;">
-        <a href="../View/home.html">
+        <a href="../View/adminHome.php">
             <button
                 style="padding: 10px 20px; background-color: #006400; color: white; cursor: pointer; border-radius: 5px;">
                 Go Back to Homepage
