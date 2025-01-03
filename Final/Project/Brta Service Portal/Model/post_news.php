@@ -1,4 +1,13 @@
 <?php
+// Start session
+session_start();
+
+// Check if the admin is logged in
+if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+    // Redirect to login page if not logged in
+    header("Location: ../View/adminlogin.html");
+    exit;
+}
 // Database connection
 $host = 'localhost';
 $dbname = 'brta-project';
@@ -40,16 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conn->close();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post News</title>
     <style>
         .header-bar {
-            background-color: #006400;
+            background-color: rgb(0, 152, 190);
             color: white;
             text-align: center;
             padding: 20px 0;
@@ -81,7 +88,7 @@ $conn->close();
         }
 
         #submit {
-            background-color: #006400;
+            background-color: rgb(0, 152, 190);
             color: white;
             border: none;
             padding: 10px 20px;
@@ -123,10 +130,10 @@ $conn->close();
     <!-- Form for posting news -->
     <form action="post_news.php" method="POST">
         <label for="news-title">News Title:</label>
-        <input type="text" id="news-title" name="news_title" placeholder="Enter news title" required>
+        <input type="text" id="news-title" name="news_title" placeholder="Enter news title">
 
         <label for="news_content">News Description:</label>
-        <textarea id="news_content" name="news_content" rows="5" placeholder="Enter news content" required></textarea>
+        <textarea id="news_content" name="news_content" rows="5" placeholder="Enter news content"></textarea>
 
         <input type="submit" id="submit" value="Submit">
     </form>
@@ -134,7 +141,7 @@ $conn->close();
     <!--Go back to Homepage button-->
     </div>
     <div style="text-align: center; margin-top: 20px;">
-        <a href="../View/home.html">
+        <a href="../View/adminHome.php">
             <button
                 style="padding: 10px 20px; background-color: #006400; color: white; cursor: pointer; border-radius: 5px;">
                 Go Back to Homepage
