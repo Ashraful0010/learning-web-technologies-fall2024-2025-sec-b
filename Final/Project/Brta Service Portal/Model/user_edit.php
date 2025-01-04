@@ -9,7 +9,6 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
-
 // Database connection
 $host = 'localhost';
 $dbname = 'brta-project';
@@ -24,9 +23,9 @@ if ($conn->connect_error) {
 }
 
 // Fetch the logged-in user's current information
-$user_id = $_SESSION['username'];
+$user_username = $_SESSION['username']; // Use session variable directly
 $stmt = $conn->prepare("SELECT firstname, lastname, username, phone, dob FROM users WHERE username = ?");
-$stmt->bind_param("i", $username);
+$stmt->bind_param("s", $user_username); 
 $stmt->execute();
 $stmt->bind_result($firstname, $lastname, $username, $phone, $dob);
 $stmt->fetch();
