@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .header-bar {
+            width: 100%;
+            background-color: #006400;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #006400;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #004b00;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f4f4f4;
+            color: #006400;
+            border: 1px solid #006400;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .signup-button:hover {
+            background-color: #ddd;
+        }
+    </style>
+    <script>
+        let loginform = document.getElementById('loginform')
+        let username = document.getElementById('username')
+        let password = document.getElementById('password')
+        let errorElement = document.getElementById('error')
+        form.addEventListener('submit', (e) =>{
+            let messages = []
+
+            if ( username.value === '' || password.value === '') {
+                messages.push('Every field is reqired')
+            }
+
+            if (messages.length > 0) {
+                e.preventDefault()
+                errorElement.innerText = messages.join(', ')
+            }
+        });
+        
+    </script>
+    </head>
+    
+    <body>
+        <div id="error"></div>
+        <div class="login-container">
+            <header class="header-bar">
+                <img src="../Asset/brta-logo-new.png" alt="BRTA Logo" class="header-logo">
+            </header>
+            <h1>User Login</h1>
+            <form id="loginform" method="post" action="../Controller/logincheck.php" onsubmit="validateLoginForm(event)">
+                <input type="text" id="username" name="username" placeholder="Enter your username">
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+                <input type="submit" id="submit" value="Login">
+            </form>
+            <button class="signup-button" onclick="location.href='signup.html'">Signup</button>
+        </div>
+    </body>
+
+</html>

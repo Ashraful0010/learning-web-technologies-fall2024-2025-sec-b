@@ -1,0 +1,186 @@
+<html>
+
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            padding: 0;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .header-bar {
+            width: 100%;
+            background-color: #006400;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .signup-form {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .signup-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .signup-form input,
+        .signup-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+
+        .submit-btn {
+            background-color: #006400;
+            color: white;
+            width: 100%;
+        }
+
+        .link-btn {
+            background-color: #ddd;
+            color: #333;
+            display: inline-block;
+            width: 48%;
+        }
+
+        .link-btn:hover {
+            background-color: #bbb;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+                const signupForm = document.getElementById("signupform");
+                const errorElement = document.getElementById("error");
+                const successElement = document.getElementById("success");
+
+                signupForm.addEventListener("submit", (e) => {
+                    e.preventDefault(); // Prevent default form submission
+                    errorElement.innerText = ""; // Clear previous errors
+                    successElement.innerText = ""; // Clear previous success message
+
+                    // Collect form data
+                    const formData = {
+                        firstname: document.getElementById("firstname").value.trim(),
+                        lastname: document.getElementById("lastname").value.trim(),
+                        username: document.getElementById("username").value.trim(),
+                        phone: document.getElementById("phone").value.trim(),
+                        dob: document.getElementById("dob").value,
+                        email: document.getElementById("email").value.trim(),
+                        password: document.getElementById("password").value,
+                        confirm_password: document.getElementById("confirm_password").value,
+                    };
+
+                    // Validate form data
+                    const messages = [];
+                    if (Object.values(formData).some(field => field === "")) {
+                        messages.push("All fields are required.");
+                    }
+                    if (formData.username.length < 5) {
+                        messages.push("Username must be at least 5 characters long.");
+                    }
+                    if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+                        messages.push("Enter a valid email address.");
+                    }
+                    if (!/^\d{11}$/.test(formData.phone)) {
+                        messages.push("Phone number must be 11 digits.");
+                    }
+                    if (formData.password.length < 6 || !/[A-Z]/.test(formData.password) || !/[0-9]/.test(formData.password)) {
+                        messages.push("Password must be at least 6 characters, include an uppercase letter, and a number.");
+                    }
+                    if (formData.password !== formData.confirm_password) {
+                        messages.push("Passwords do not match.");
+                    }
+
+                    if (messages.length > 0) {
+                        errorElement.innerText = messages.join(", ");
+                        return;
+                    }
+
+                    // Send data using AJAX
+                    fetch("../Controller/signupcheck.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(formData),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                successElement.innerText = "Account created successfully!";
+                                signupForm.reset();
+                            } else {
+                                errorElement.innerText = data.error || "Failed to create an account.";
+                            }
+                        })
+                        .catch(error => {
+                            errorElement.innerText = "An error occurred. Please try again.";
+                        });
+                });
+            });
+    </script>
+</head>
+
+<body>
+    <form id="signupform" class="signup-form">
+        <header class="header-bar">
+            <img src="../Asset/brta-logo-new.png" alt="BRTA Logo" class="header-logo">
+        </header>
+        <h2>Create an Account</h2>
+        <div id="error"></div>
+        <div id="success"></div>
+        <input type="text" id="firstname" name="firstname" placeholder="First Name">
+        <input type="text" id="lastname" name="lastname" placeholder="Last Name">
+        <input type="text" id="username" name="username" placeholder="Username">
+        <input type="text" id="phone" name="phone" placeholder="Phone Number (11 digits)">
+        <input type="date" id="dob" name="dob">
+        <input type="text" id="email" name="email" placeholder="Email">
+        <input type="password" id="password" name="password" placeholder="Password">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+        
+        <button class="submit-btn" id="submit" type="submit">Submit</button>
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+            <button class="link-btn" type="button" onclick="location.href='login.html'">Already have an
+                account?</button>
+            <button class="link-btn" type="button" onclick="location.href='adminlogin.html'">Admin login</button>
+        </div>
+    </form>
+</body>
+
+</html>
